@@ -107,7 +107,7 @@ export const en: Dict = {
         "category": "Custom Furniture"
       },
       {
-        "title": "Oak wall sculpture",
+        "title": "Hand-carved wood sculpture",
         "category": "Art Piece"
       },
       {
@@ -115,7 +115,7 @@ export const en: Dict = {
         "category": "Kitchens & Built-Ins"
       },
       {
-        "title": "Restored heirloom dresser",
+        "title": "Restored vintage seating",
         "category": "Restoration & Revival"
       },
       {
@@ -123,10 +123,15 @@ export const en: Dict = {
         "category": "Doors & Fine Details"
       },
       {
-        "title": "One-of-a-kind art object",
-        "category": "Special Commission"
+        "title": "Wooden door with iron details",
+        "category": "Doors & Fine Details"
       }
     ]
+  },
+  "banner": {
+    "title": "Ready to turn an idea into wood?",
+    "subtitle": "Every piece begins with a single conversation. Tell me what you have in mind — and we'll plan it together.",
+    "button": "Let's plan your project"
   },
   "process": {
     "eyebrow": "How It Works",

@@ -3,6 +3,7 @@ import type { Dict } from '@/content/dictionaries/types';
 import type { Locale } from '@/lib/i18n';
 import { siteConfig, whatsappLink } from '@/lib/config';
 import { Icon } from './icons';
+import LogoMark from './Logo';
 
 export function Footer({ dict, locale }: { dict: Dict; locale: Locale }) {
   const year = 2026;
@@ -18,7 +19,12 @@ export function Footer({ dict, locale }: { dict: Dict; locale: Locale }) {
     <footer className="site-footer">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
-          <span className="brand__name brand__name--footer">{dict.brand.name}</span>
+          <div className="site-footer__logo">
+            <span className="site-footer__mark" aria-hidden>
+              <LogoMark size={40} />
+            </span>
+            <span className="brand__name brand__name--footer">{dict.brand.name}</span>
+          </div>
           <p className="site-footer__tagline">{dict.footer.tagline}</p>
         </div>
 

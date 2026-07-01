@@ -44,6 +44,11 @@ export type Dict = {
     subtitle: string;
     items: { title: string; category: string }[];
   };
+  banner: {
+    title: string;
+    subtitle: string;
+    button: string;
+  };
   process: {
     eyebrow: string;
     title: string;

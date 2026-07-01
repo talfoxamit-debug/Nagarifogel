@@ -1,12 +1,13 @@
 import * as React from 'react';
 import type { Dict } from '@/content/dictionaries/types';
 import WoodImage from './WoodImage';
+import { media } from '@/content/media';
 
 export function Hero({ dict }: { dict: Dict }) {
   return (
     <section id="home" className="hero">
       <div className="hero__media" aria-hidden>
-        <WoodImage seed={42} priority />
+        <WoodImage seed={42} src={media.hero} priority />
         <div className="hero__scrim" />
       </div>
 

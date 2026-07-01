@@ -7,6 +7,7 @@ import About from '@/components/About';
 import Services from '@/components/Services';
 import Gallery from '@/components/Gallery';
 import Process from '@/components/Process';
+import CtaBand from '@/components/CtaBand';
 import Values from '@/components/Values';
 import Testimonials from '@/components/Testimonials';
 import Faq from '@/components/Faq';
@@ -27,6 +28,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Services dict={dict} />
       <Gallery dict={dict} />
       <Process dict={dict} />
+      <CtaBand dict={dict} />
       <Values dict={dict} />
       <Testimonials dict={dict} />
       <Faq dict={dict} />

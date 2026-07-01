@@ -4,6 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import type { Dict } from '@/content/dictionaries/types';
 import type { Locale } from '@/lib/i18n';
+import LogoMark from './Logo';
 
 type HeaderProps = {
   dict: Dict;
@@ -46,16 +47,7 @@ export function Header({ dict, locale }: HeaderProps) {
       <div className="container site-header__inner">
         <Link href={`/${locale}`} className="brand" onClick={close}>
           <span className="brand__mark" aria-hidden>
-            <svg viewBox="0 0 32 32" width="30" height="30">
-              <path
-                d="M6 24 L16 6 L26 24 Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinejoin="round"
-              />
-              <path d="M11 24 L16 15 L21 24" fill="none" stroke="currentColor" strokeWidth="1.4" opacity="0.6" />
-            </svg>
+            <LogoMark size={34} />
           </span>
           <span className="brand__text">
             <span className="brand__name">{dict.brand.name}</span>

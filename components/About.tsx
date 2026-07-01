@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { Dict } from '@/content/dictionaries/types';
 import Reveal from './Reveal';
 import WoodImage from './WoodImage';
+import { media } from '@/content/media';
 
 export function About({ dict }: { dict: Dict }) {
   return (
@@ -9,7 +10,7 @@ export function About({ dict }: { dict: Dict }) {
       <div className="container about__grid">
         <Reveal className="about__media">
           <div className="about__frame">
-            <WoodImage seed={7} alt={dict.about.title} />
+            <WoodImage seed={7} src={media.about} alt={dict.about.title} />
           </div>
           <div className="about__badge">
             <span className="about__badge-num">{dict.about.stats[0]?.value}</span>

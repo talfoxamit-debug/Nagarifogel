@@ -7,6 +7,7 @@ import { getDictionary } from '@/content/dictionaries';
 import { siteConfig } from '@/lib/config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 const assistant = Assistant({
   subsets: ['hebrew', 'latin'],
@@ -94,6 +95,14 @@ export default async function LocaleLayout({
         <Header dict={dict} locale={locale} />
         <main>{children}</main>
         <Footer dict={dict} locale={locale} />
+        <FloatingWhatsApp
+          label={dict.quote.whatsappCta}
+          message={
+            locale === 'he'
+              ? 'שלום אורי! אשמח להצעת מחיר לפרויקט עבודת עץ.'
+              : "Hi Oori! I'd love a quote for a woodworking project."
+          }
+        />
       </body>
     </html>
   );
