@@ -31,6 +31,10 @@ and a lead pipeline that can save to **Supabase**, email via **Resend**, and off
 - **Custom tree-ring logo** (header, footer, favicon) + a branded social-share image (`/public/og.png`).
 - **SEO & analytics** — per-locale metadata, Open Graph image, LocalBusiness structured data,
   `sitemap.xml`, `robots.txt`, and Vercel Analytics (auto-active once deployed on Vercel).
+- **Built-in CRM at `/admin`** — password-protected lead pipeline (new → contacted → quoted →
+  won/lost), notes & activity timeline per lead, follow-up reminders (quick "tomorrow / 3 days /
+  a week" buttons or a custom date), and a daily email digest of due/overdue follow-ups.
+  See **CRM (`/admin`)** below.
 
 ---
 
@@ -62,6 +66,9 @@ npm run build && npm start
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp click-to-chat (intl. format, e.g. `972501234567`) |
 | `NEXT_PUBLIC_CONTACT_PHONE` / `NEXT_PUBLIC_CONTACT_EMAIL` | Shown in the Contact section & footer |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL for SEO / Open Graph |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only key the `/admin` CRM uses to read/update leads |
+| `ADMIN_PASSWORD` / `ADMIN_SESSION_SECRET` | Login password + session-signing secret for `/admin` |
+| `CRON_SECRET` | Locks down the daily follow-up digest cron endpoint (optional) |
 
 ### Supabase setup
 
@@ -76,6 +83,42 @@ npm run build && npm start
 1. Create an account at [resend.com](https://resend.com), verify a sending domain.
 2. Set `RESEND_API_KEY`, `LEAD_NOTIFICATION_EMAIL` (where leads go), and `LEAD_FROM_EMAIL`
    (a verified from-address). Without these, email is simply skipped.
+
+---
+
+## 🗂️ CRM (`/admin`)
+
+A lightweight, self-hosted CRM for managing the leads this site captures — no third-party CRM
+subscription needed.
+
+**Pipeline:** every lead starts as `new` and moves through `contacted → quoted → won`/`lost`.
+Change status inline from the leads list, or on a lead's detail page.
+
+**Notes & history:** every status change, follow-up change, and manual note is recorded on a
+per-lead timeline, so nothing about a conversation gets lost.
+
+**Follow-up reminders:** set a follow-up date per lead (quick buttons: tomorrow / 3 days / a
+week, or pick a date). The dashboard highlights everything due today or overdue. A daily cron
+job (`vercel.json`, 6am UTC) also emails a digest of due follow-ups via Resend — reuses the same
+`RESEND_API_KEY` / `LEAD_NOTIFICATION_EMAIL` as lead notifications.
+
+### Setup
+
+1. Run the migration in `supabase/migrations/0002_crm.sql` (adds `status`/`follow_up_at` to
+   `leads`, plus a private `lead_activity` table — same Supabase project as the leads table).
+2. Get your **service role key** from Supabase → Settings → API (`service_role`, not `anon`) and
+   set `SUPABASE_SERVICE_ROLE_KEY`. This key bypasses Row Level Security and must **never** be
+   exposed to the browser — it's only read server-side by the `/admin` API routes.
+3. Set `ADMIN_PASSWORD` (the login password) and `ADMIN_SESSION_SECRET` (a random signing
+   secret — generate with `openssl rand -hex 32`). Without both set, `/admin/login` shows a
+   "not configured" message instead of a broken login.
+4. Optionally set `CRON_SECRET` (also `openssl rand -hex 32`) so only Vercel's scheduler can
+   trigger the follow-up digest endpoint.
+5. Visit `/admin`, log in, and leads submitted through the site's quote form will appear.
+
+Login uses a signed, expiring (12h) HttpOnly cookie — there's no separate user database, since
+this is built for a single owner. Rotate `ADMIN_PASSWORD` any time by updating the env var and
+redeploying.
 
 ---
 
@@ -108,13 +151,17 @@ Everything is in plain, well-structured files:
 ```
 app/
   [locale]/          # /he and /en pages + layout (fonts, <html lang dir>, header/footer)
+  admin/             # CRM: login, dashboard, leads list + detail (own root layout)
   api/quote/route.ts # lead handler → Supabase + Resend
+  api/admin/         # CRM API: login/logout, update lead, add note
+  api/cron/          # daily follow-up digest (Vercel Cron)
   globals.css        # the whole design system
   robots.ts, sitemap.ts, icon.svg
 components/           # Hero, About, Services, Gallery, Process, Values,
                      # Testimonials, Faq, QuoteForm, Contact, Header, Footer, WoodImage …
 content/dictionaries # he.ts / en.ts / types.ts  (all site copy)
-lib/                 # i18n helpers + site config
-supabase/migrations  # leads table + RLS
-middleware.ts        # root → /he redirect, locale routing
+lib/                 # i18n helpers, site config, CRM types, admin auth
+supabase/migrations  # leads table + RLS, CRM columns + activity log
+middleware.ts        # root → /he redirect, locale routing, /admin auth guard
+vercel.json          # daily follow-up reminder cron schedule
 ```
