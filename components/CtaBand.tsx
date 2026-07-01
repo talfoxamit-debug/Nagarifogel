@@ -8,7 +8,7 @@ export function CtaBand({ dict }: { dict: Dict }) {
     <section className="cta-band">
       <div
         className="cta-band__bg"
-        style={{ backgroundImage: `url(${media.craftChisel})` }}
+        style={{ backgroundImage: `url(${media.ctaBg})` }}
         aria-hidden
       />
       <div className="cta-band__scrim" aria-hidden />

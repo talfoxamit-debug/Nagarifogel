@@ -11,6 +11,7 @@ export function Contact({ dict }: { dict: Dict }) {
       ? 'שלום אורי, אשמח לקבל הצעת מחיר לפרויקט עבודת עץ.'
       : "Hi Oori, I'd love to get a quote for a woodworking project.";
 
+  const telDigits = siteConfig.contactPhone.replace(/[^\d+]/g, '');
   const cards = [
     {
       icon: 'whatsapp',
@@ -18,9 +19,13 @@ export function Contact({ dict }: { dict: Dict }) {
       value: siteConfig.contactPhone,
       href: whatsappLink(waMsg),
       accent: true,
+      ltr: true,
     },
-    { icon: 'phone', label: dict.contact.phoneLabel, value: siteConfig.contactPhone, href: `tel:${siteConfig.contactPhone}` },
-    { icon: 'mail', label: dict.contact.emailLabel, value: siteConfig.contactEmail, href: `mailto:${siteConfig.contactEmail}` },
+    { icon: 'phone', label: dict.contact.phoneLabel, value: siteConfig.contactPhone, href: `tel:${telDigits}`, ltr: true },
+    // Email card only shown when a real address is configured.
+    ...(siteConfig.contactEmail
+      ? [{ icon: 'mail', label: dict.contact.emailLabel, value: siteConfig.contactEmail, href: `mailto:${siteConfig.contactEmail}` }]
+      : []),
     { icon: 'location', label: dict.contact.locationLabel, value: dict.contact.location },
     { icon: 'clock', label: dict.contact.hoursLabel, value: dict.contact.hours },
   ];
@@ -41,7 +46,9 @@ export function Contact({ dict }: { dict: Dict }) {
                   <Icon name={c.icon} />
                 </span>
                 <span className="contact-card__label">{c.label}</span>
-                <span className="contact-card__value">{c.value}</span>
+                <span className="contact-card__value" dir={c.ltr ? 'ltr' : undefined}>
+                  {c.value}
+                </span>
               </>
             );
             return (

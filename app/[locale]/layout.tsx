@@ -87,6 +87,7 @@ export default async function LocaleLayout({
   const locale: Locale = raw;
   const dict = getDictionary(locale);
 
+  const sameAs = [siteConfig.instagram, siteConfig.facebook].filter(Boolean);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -95,10 +96,10 @@ export default async function LocaleLayout({
     image: `${siteConfig.siteUrl}/og.png`,
     url: `${siteConfig.siteUrl}/${locale}`,
     telephone: siteConfig.contactPhone,
-    email: siteConfig.contactEmail,
+    ...(siteConfig.contactEmail ? { email: siteConfig.contactEmail } : {}),
     areaServed: dict.contact.location,
     priceRange: '₪₪',
-    sameAs: [siteConfig.instagram, siteConfig.facebook],
+    ...(sameAs.length ? { sameAs } : {}),
   };
 
   return (

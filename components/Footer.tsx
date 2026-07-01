@@ -49,17 +49,19 @@ export function Footer({ dict, locale }: { dict: Dict; locale: Locale }) {
               </a>
             </li>
             <li>
-              <a href={`tel:${siteConfig.contactPhone}`}>
+              <a href={`tel:${siteConfig.contactPhone.replace(/[^\d+]/g, '')}`}>
                 <span className="site-footer__ico"><Icon name="phone" /></span>
-                {siteConfig.contactPhone}
+                <span dir="ltr">{siteConfig.contactPhone}</span>
               </a>
             </li>
-            <li>
-              <a href={`mailto:${siteConfig.contactEmail}`}>
-                <span className="site-footer__ico"><Icon name="mail" /></span>
-                {siteConfig.contactEmail}
-              </a>
-            </li>
+            {siteConfig.contactEmail && (
+              <li>
+                <a href={`mailto:${siteConfig.contactEmail}`}>
+                  <span className="site-footer__ico"><Icon name="mail" /></span>
+                  {siteConfig.contactEmail}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>
