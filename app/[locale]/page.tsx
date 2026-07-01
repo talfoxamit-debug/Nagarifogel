@@ -6,6 +6,7 @@ import Marquee from '@/components/Marquee';
 import About from '@/components/About';
 import Services from '@/components/Services';
 import Gallery from '@/components/Gallery';
+import BeforeAfter from '@/components/BeforeAfter';
 import Process from '@/components/Process';
 import CtaBand from '@/components/CtaBand';
 import Values from '@/components/Values';
@@ -27,6 +28,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <About dict={dict} />
       <Services dict={dict} />
       <Gallery dict={dict} />
+      <BeforeAfter dict={dict} />
       <Process dict={dict} />
       <CtaBand dict={dict} />
       <Values dict={dict} />

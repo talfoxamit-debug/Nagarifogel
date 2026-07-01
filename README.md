@@ -21,9 +21,14 @@ and a lead pipeline that can save to **Supabase**, email via **Resend**, and off
   1. **Saves to Supabase** (if configured),
   2. **Emails Oori** via Resend (if configured),
   3. Always offers a **prefilled WhatsApp** message as a fallback.
-- **No broken images** — sections use elegant, self-contained SVG wood placeholders. Drop in real
-  photos whenever you like (see below).
-- **SEO ready** — per-locale metadata, Open Graph, `sitemap.xml`, `robots.txt`, favicon.
+- **Real photography** — self-hosted in `/public/images` (Pexels, free to use); swap for Oori's own
+  photos anytime via `content/media.ts`.
+- **Interactive gallery** — click any piece for a full lightbox with prev/next.
+- **Before/After slider** — drag-to-reveal restoration comparison.
+- **Animated stat counters** + a subtle hero Ken-Burns zoom.
+- **Custom tree-ring logo** (header, footer, favicon) + a branded social-share image (`/public/og.png`).
+- **SEO & analytics** — per-locale metadata, Open Graph image, LocalBusiness structured data,
+  `sitemap.xml`, `robots.txt`, and Vercel Analytics (auto-active once deployed on Vercel).
 
 ---
 

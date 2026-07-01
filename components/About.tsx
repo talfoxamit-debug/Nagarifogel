@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { Dict } from '@/content/dictionaries/types';
 import Reveal from './Reveal';
 import WoodImage from './WoodImage';
+import StatCounter from './StatCounter';
 import { media } from '@/content/media';
 
 export function About({ dict }: { dict: Dict }) {
@@ -13,7 +14,9 @@ export function About({ dict }: { dict: Dict }) {
             <WoodImage seed={7} src={media.about} alt={dict.about.title} />
           </div>
           <div className="about__badge">
-            <span className="about__badge-num">{dict.about.stats[0]?.value}</span>
+            <span className="about__badge-num">
+              {dict.about.stats[0] ? <StatCounter value={dict.about.stats[0].value} /> : null}
+            </span>
             <span className="about__badge-label">{dict.about.stats[0]?.label}</span>
           </div>
         </Reveal>
@@ -34,7 +37,9 @@ export function About({ dict }: { dict: Dict }) {
           <div className="about__stats">
             {dict.about.stats.map((s, i) => (
               <div key={i} className="stat">
-                <span className="stat__value">{s.value}</span>
+                <span className="stat__value">
+                  <StatCounter value={s.value} />
+                </span>
                 <span className="stat__label">{s.label}</span>
               </div>
             ))}

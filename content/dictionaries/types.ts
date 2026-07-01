@@ -49,6 +49,13 @@ export type Dict = {
     subtitle: string;
     button: string;
   };
+  beforeAfter: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    beforeLabel: string;
+    afterLabel: string;
+  };
   process: {
     eyebrow: string;
     title: string;

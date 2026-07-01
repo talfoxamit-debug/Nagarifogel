@@ -133,6 +133,13 @@ export const en: Dict = {
     "subtitle": "Every piece begins with a single conversation. Tell me what you have in mind — and we'll plan it together.",
     "button": "Let's plan your project"
   },
+  "beforeAfter": {
+    "eyebrow": "Restoration & Revival",
+    "title": "Bringing pieces back to life",
+    "subtitle": "Drag the handle to see the difference — before and after a careful restoration of a piece with history.",
+    "beforeLabel": "Before",
+    "afterLabel": "After"
+  },
   "process": {
     "eyebrow": "How It Works",
     "title": "From first idea to your home",
